@@ -31,7 +31,6 @@ class Interval {
 
     this.timeout = timeout.unix();
 
-    console.log('Checking if accounts are protected...');
     const users = await getUsers(...client.config.accounts);
 
     if (users?.length) {
