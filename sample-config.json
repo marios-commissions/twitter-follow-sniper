@@ -1,0 +1,20 @@
+{
+  "sniper": {
+    "username": "123",
+    "password": "Password"
+  },
+  "followers": [
+    {
+      "username": "123",
+      "password": "Password"
+    },
+    {
+      "username": "123",
+      "password": "Password"
+    }
+  ],
+  "accounts": [
+    "account-to-follow"
+  ],
+  "delay": 2500
+}

@@ -1,0 +1,21 @@
+{
+  "name": "discord-twitter-forward",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "swc src -d dist -D --delete-dir-on-start",
+    "start": "node --no-warnings=ExperimentalWarning ."
+  },
+  "author": "eternal (eternal.git@gmail.com)",
+  "license": "Unlicensed",
+  "devDependencies": {
+    "@swc/core": "^1.3.36"
+  },
+  "dependencies": {
+    "@types/node": "^18.14.2",
+    "dotenv": "^16.0.3",
+    "moment": "^2.29.4",
+    "twitter-api-v2": "github:localip/node-twitter-api-v2",
+    "xauth-login": "^1.0.1"
+  }
+}
