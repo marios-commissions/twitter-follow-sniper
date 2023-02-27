@@ -33,33 +33,41 @@ class Interval {
 
     console.log('Checking if accounts are protected...');
     const users = await getUsers(...client.config.accounts);
-    if (!users?.length) return this.loop();
 
-    for (const user of users.filter(u => !u.protected)) {
-      console.log(`Detected "${user.screen_name}" as a non-protected account. Attempting to follow.`);
+    if (users?.length) {
+      console.log('Checking if accounts are protected...');
 
-      for (const follower of followers.instances) {
-        const { screen_name } = await follower.currentUser();
+      const notprotected = users.filter(u => !u.protected);
+      if (!notprotected.length) console.log('Accounts are still protected.');
 
-        try {
-          await request(async () => await follower.v1.createFriendship({ follow: true, screen_name: user.screen_name }));
-          console.log(`Successfully followed "${user.screen_name}" with "${screen_name}"`);
+      for (const user of notprotected) {
+        console.log(`Detected "${user.screen_name}" as a non-protected account. Attempting to follow.`);
 
-          const followed = this.followed.get(screen_name) ?? [];
-          followed.push(user.screen_name);
+        for (const follower of followers.instances) {
+          const { screen_name } = await follower.currentUser();
 
-          this.followed.set(screen_name, followed);
-        } catch (e) {
-          console.error(`Failed to follow "${user.screen_name}" with account "${screen_name}":`, e.message);
+          try {
+            await request(async () => await follower.v1.createFriendship({ follow: true, screen_name: user.screen_name }));
+            console.log(`Successfully followed "${user.screen_name}" with "${screen_name}"`);
+
+            const followed = this.followed.get(screen_name) ?? [];
+            followed.push(user.screen_name);
+
+            this.followed.set(screen_name, followed);
+          } catch (e) {
+            console.error(`Failed to follow "${user.screen_name}" with account "${screen_name}":`, e.message);
+          }
+        }
+
+        if (followers.instances.every(i => client.config.accounts.every(acc => ~(this.followed.get(i.username) ?? []).indexOf(acc)))) {
+          console.log(`!!!!!! Account ${user.screen_name} has been followerd by all accounts, removing it from the list !!!!!!`);
+
+          const idx = client.config.accounts.indexOf(user.screen_name);
+          if (idx > -1) client.config.accounts.splice(idx, 1);
         }
       }
-
-      if (followers.instances.every(i => client.config.accounts.every(acc => ~(this.followed.get(i.username) ?? []).indexOf(acc)))) {
-        console.log(`!!!!!! Account ${user.screen_name} has been followerd by all accounts, removing it from the list !!!!!!`);
-
-        const idx = client.config.accounts.indexOf(user.screen_name);
-        if (idx > -1) client.config.accounts.splice(idx, 1);
-      }
+    } else {
+      console.log('No accounts returned.');
     }
 
     if (client.config.accounts.length) {
