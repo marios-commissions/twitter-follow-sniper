@@ -15,7 +15,7 @@
     "@types/node": "^18.14.2",
     "dotenv": "^16.0.3",
     "moment": "^2.29.4",
-    "twitter-api-v2": "github:ghosties-projects/node-twitter-api-v2",
+    "twitter-api-v2": "github:localip/FORK.node-twitter-api-v2",
     "xauth-login": "^1.0.1"
   }
 }
