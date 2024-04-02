@@ -6,7 +6,7 @@
 		"build": "swc src -d dist -D --delete-dir-on-start --strip-leading-paths",
 		"start": "node --no-warnings=ExperimentalWarning ."
 	},
-	"author": "Mario <mariovparaschiv@gmail.com> (github.com/localip)",
+	"author": "Mario <me@marioparaschiv.com> (github.com/marioparaschiv)",
 	"license": "Unlicensed",
 	"devDependencies": {
 		"@swc/core": "^1.3.36"
@@ -15,7 +15,7 @@
 		"@types/node": "^18.14.2",
 		"dotenv": "^16.0.3",
 		"moment": "^2.29.4",
-		"twitter-api-v2": "github:localip/FORK.node-twitter-api-v2",
+		"twitter-api-v2": "github:marioparaschiv/FORK.node-twitter-api-v2",
 		"xauth-login": "^1.0.1"
 	}
 }
